@@ -1,11 +1,10 @@
 #pragma once
 
-#include "Codec.h"
+#include "Algorithms/BernseeVocoder.h"
+#include "Convert.h"
 #include "FFT.h"
 #include "Math.h"
 #include "Window.h"
-
-#include <Audilets/DSP/Algorithms/BernseeVocoder.h>
 
 #include <vector>
 

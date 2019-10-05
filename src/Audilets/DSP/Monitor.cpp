@@ -48,7 +48,7 @@ Monitor::~Monitor()
 
 void Monitor::magnitudes(const short* frame, std::vector<float>& magnitudes)
 {
-  Codec::short2float(frame, frameBuffer, frameWindow, frameSize);
+  Convert::fromShortToFloat(frame, frameBuffer, frameWindow, frameSize);
 
   fft->fft(frameBuffer);
 
@@ -67,7 +67,7 @@ void Monitor::magnitudes(const short* frame, std::vector<float>& magnitudes)
 
 void Monitor::frequencies(const short* frame, std::vector<float>& frequencies)
 {
-  Codec::short2float(frame, frameBuffer, frameWindow, frameSize);
+  Convert::fromShortToFloat(frame, frameBuffer, frameWindow, frameSize);
 
   fft->fft(frameBuffer);
 

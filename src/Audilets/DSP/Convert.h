@@ -2,9 +2,9 @@
 
 #include "Math.h"
 
-namespace Audilets::DSP::Codec
+namespace Audilets::DSP::Convert
 {
-  inline void short2float(const short* source, float* destination, const float* window, const size_t count)
+  inline void fromShortToFloat(const short* source, float* destination, const float* window, const size_t count)
   {
     const float scaleToFloat = 1.0 / 32767.5;
     const float scaleCorrection = 0.5;
@@ -22,7 +22,7 @@ namespace Audilets::DSP::Codec
     }
   }
 
-  inline void float2short(const float* source, short* destination, const float* window, const size_t count)
+  inline void fromFloatToShort(const float* source, short* destination, const float* window, const size_t count)
   {
     const float scaleToShort = 32767.5;
     const float scaleCorrection = 0.5;
@@ -39,7 +39,7 @@ namespace Audilets::DSP::Codec
     }
   }
 
-  inline void float2shortplus(const float* source, short* destination, const float* window, const size_t count)
+  inline void fromFloatToShortPlus(const float* source, short* destination, const float* window, const size_t count)
   {
     const float scaleToShort = 32767.5;
     const float scaleCorrection = 0.5;
@@ -52,7 +52,7 @@ namespace Audilets::DSP::Codec
       value *= scaleToShort;
       value -= scaleCorrection;
 
-      destination[i] /* plus */ += static_cast<short>(value);
+      destination[i] /*plus*/ += static_cast<short>(value);
     }
   }
 }
