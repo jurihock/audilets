@@ -77,4 +77,19 @@ namespace Audilets::DSP::Math
   {
     return stdev(begin, end, mean(begin, end));
   }
+
+  template<class T>
+  constexpr T decibel(const T value)
+  {
+    return T(10) * std::log10(value);
+  }
+
+  template<class IT, typename T = typename std::iterator_traits<IT>::value_type>
+  constexpr void decibel(const IT begin, const IT end)
+  {
+    for (auto it = begin; it != end; ++it)
+    {
+      *it = decibel(*it);
+    }
+  }
 }
