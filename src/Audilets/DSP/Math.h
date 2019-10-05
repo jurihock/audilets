@@ -37,7 +37,7 @@ namespace Audilets::DSP::Math
     return a * (T(1) - c) + b * c;
   }
 
-  template<class T>
+  template<typename T>
   constexpr const T& clamp(const T& value, const T& lo, const T& hi)
   {
     assert(lo <= hi);
@@ -50,11 +50,11 @@ namespace Audilets::DSP::Math
     double mean = 0.0;
     size_t count = 0;
 
-    std::for_each(begin, end, [&](const T& value)
+    for (auto it = begin; it != end; ++it)
     {
-      mean += value;
+      mean += *it;
       ++count;
-    });
+    }
 
     mean /= count;
 
@@ -67,11 +67,11 @@ namespace Audilets::DSP::Math
     double stdev = 0.0;
     size_t count = 0;
 
-    std::for_each(begin, end, [&](const T& value)
+    for (auto it = begin; it != end; ++it)
     {
-      stdev += (value - static_cast<double>(mean)) * (value - static_cast<double>(mean));
+      stdev += (*it - static_cast<double>(mean)) * (*it - static_cast<double>(mean));
       ++count;
-    });
+    }
 
     stdev /= count - 1;
     stdev = std::sqrt(stdev);
