@@ -1,5 +1,6 @@
 #pragma once
 
+#include "Codec.h"
 #include "FFT.h"
 #include "Math.h"
 #include "Window.h"

@@ -75,35 +75,19 @@ void STFT::stft(const short* frame, short* reframe)
   // analyze and synthesize the buffered data hop by hop
   for (const size_t frameHop : frameHops)
   {
-    const float scaleToFloat = 1.0 / 32767.5;
-    const float scaleToShort = 32767.5;
-    const float scaleCorrection = 0.5;
-
     // extract the current subframe for analysis
-    for (size_t i = 0; i < frameSize; ++i)
-    {
-      frameBuffer[i] = (float)analysisBuffer[frameHop + i];
-      frameBuffer[i] += scaleCorrection;
-      frameBuffer[i] *= scaleToFloat;
-      frameBuffer[i] *= frameWindow[i];
-    }
+    Codec::short2float(analysisBuffer + frameHop, frameBuffer, frameWindow, frameSize);
 
-    // process the extracted subframe
+    // process the extracted subframe in time domain
     processInTimeDomain(frameBuffer);
 
+    // process the extracted subframe in frequency domain
     fft->fft(frameBuffer);
     processInFrequencyDomain(reinterpret_cast<std::complex<float>*>(frameBuffer));
     fft->ifft(frameBuffer);
 
     // synthesize the processed subframe
-    for (size_t i = 0; i < frameSize; ++i)
-    {
-      frameBuffer[i] = Math::clamp(frameBuffer[i], -1.0f, +1.0f);
-      frameBuffer[i] *= frameWindow[i];
-      frameBuffer[i] *= scaleToShort;
-      frameBuffer[i] -= scaleCorrection;
-      synthesisBuffer[frameHop + i] += (short)frameBuffer[i];
-    }
+    Codec::float2shortplus(frameBuffer, synthesisBuffer + frameHop, frameWindow, frameSize);
   }
 
   // copy the finished frame into the output frame
