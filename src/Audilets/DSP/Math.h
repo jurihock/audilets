@@ -30,6 +30,13 @@ namespace Audilets::DSP::Math
     return phase - tmp * PI<T>;
   }
 
+  template<typename T>
+  constexpr T lerp(const T a, const T b, const T c)
+  {
+    assert(0 <= c && c <= 1);
+    return a * (T(1) - c) + b * c;
+  }
+
   template<class T>
   constexpr const T& clamp(const T& value, const T& lo, const T& hi)
   {
