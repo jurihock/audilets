@@ -18,7 +18,7 @@ namespace Audilets::GUI
   {
   public:
 
-    MultiPlotWindow(QWidget* parent = 0);
+    MultiPlotWindow(QWidget* parent = nullptr);
     ~MultiPlotWindow();
 
   private:
@@ -45,7 +45,7 @@ namespace Audilets::GUI
 
         QPen pen;
         pen.setColor(getColor(i));
-        pen.setWidth(3);
+        pen.setWidth(2);
 
         plot->graph(i)->setPen(pen);
       }
@@ -100,7 +100,8 @@ namespace Audilets::GUI
     {
       auto plot = getPlot(row, col);
 
-      plot->replot();
+      // FIXME find the right way to trigger replot...
+      plot->replot(QCustomPlot::rpQueuedReplot);
     }
 
     template<const size_t row, const size_t col, const size_t graph = 0, typename T>
