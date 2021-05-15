@@ -5,47 +5,45 @@
 #include <cmath>
 #include <complex>
 #include <iterator>
+#include <limits>
 #include <numeric>
 
 namespace Audilets::DSP::Math
 {
-  template<typename T>
-  constexpr T const PI = std::acos(-T(1));
+  template<typename T, uint8_t multiplier = 1>
+  inline constexpr T const PI = T(multiplier) * T(M_PI); // std::acos(-T(1))
 
-  template<typename T>
-  constexpr const T IP = T(1) / PI<T>;
+  template<typename T, uint8_t multiplier = 1>
+  inline constexpr const T IP = T(1) / PI<T, multiplier>;
 
   /**
-   * Returns the principal value in range (-PI,+PI]
-   * of the specified "unwrapped" phase angle.
-   */
+   * Wraps an arbitrary radian phase value into the range [-PI,+PI).
+   **/
   template<typename T>
-  constexpr T wrap(const T phase)
+  inline T wrap(const T phase)
   {
-    long tmp = phase * IP<T>;
-
-    if (tmp < 0) tmp -= tmp & 1;
-    else         tmp += tmp & 1;
-
-    return phase - tmp * PI<T>;
+    return phase - Math::PI<T, 2> * std::floor(phase * Math::IP<T, 2> + T(0.5));
   }
 
+  /**
+   * Computes a * (1-c) + b * c, where c is in range [0,1].
+   **/
   template<typename T>
-  constexpr T lerp(const T a, const T b, const T c)
+  inline T lerp(const T a, const T b, const T c)
   {
     assert(0 <= c && c <= 1);
-    return a * (T(1) - c) + b * c;
+    return a + c * (b - a);
   }
 
   template<typename T>
-  constexpr const T& clamp(const T& value, const T& lo, const T& hi)
+  inline const T& clamp(const T& value, const T& lo, const T& hi)
   {
     assert(lo <= hi);
     return (value < lo) ? lo : (hi < value) ? hi : value;
   }
 
   template<class IT, typename T = typename std::iterator_traits<IT>::value_type>
-  constexpr T mean(const IT begin, const IT end)
+  inline T mean(const IT begin, const IT end)
   {
     double mean = 0.0;
     size_t count = 0;
@@ -62,7 +60,7 @@ namespace Audilets::DSP::Math
   }
 
   template<class IT, typename T = typename std::iterator_traits<IT>::value_type>
-  constexpr T stdev(const IT begin, const IT end, const T mean)
+  inline T stdev(const IT begin, const IT end, const T mean)
   {
     double stdev = 0.0;
     size_t count = 0;
@@ -80,19 +78,19 @@ namespace Audilets::DSP::Math
   }
 
   template<class IT, typename T = typename std::iterator_traits<IT>::value_type>
-  constexpr T stdev(const IT begin, const IT end)
+  inline T stdev(const IT begin, const IT end)
   {
     return stdev(begin, end, mean(begin, end));
   }
 
   template<class T>
-  constexpr T decibel(const T value)
+  inline T decibel(const T value)
   {
     return T(10) * std::log10(value);
   }
 
   template<class IT, typename T = typename std::iterator_traits<IT>::value_type>
-  constexpr void decibel(const IT begin, const IT end)
+  inline void decibel(const IT begin, const IT end)
   {
     for (auto it = begin; it != end; ++it)
     {
