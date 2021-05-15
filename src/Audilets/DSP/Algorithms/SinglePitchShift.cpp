@@ -60,7 +60,8 @@ void SinglePitchShift::process(std::complex<float>* frame)
     magnitude += std::real(frameBuffer[j]);
     frequency *= pitchShiftingFactor;
 
-    frameBuffer[j] = magnitude + frequency * 1j;
+    frameBuffer[j].real(magnitude);
+    frameBuffer[j].imag(frequency);
   }
 
   memcpy(frame, frameBuffer, frameSize * sizeof(float));
