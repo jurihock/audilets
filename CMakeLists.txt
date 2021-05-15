@@ -5,8 +5,10 @@ project(Audilets)
 # lib
 include("lib/kissfft/CMakeLists.txt")
 include("lib/qcustomplot/CMakeLists.txt")
+include("lib/readerwriterqueue/CMakeLists.txt")
 include("lib/rtaudio/CMakeLists.txt")
 
 # src
 include("src/Audilets/CMakeLists.txt")
-include("src/Sandbox/CMakeLists.txt")
+include("src/Monitor/CMakeLists.txt")
+include("src/Probe/CMakeLists.txt")

@@ -4,11 +4,8 @@ add_library(kissfft
 )
 
 target_include_directories(kissfft
-  PUBLIC "${CMAKE_CURRENT_LIST_DIR}/.."
-)
-
-target_include_directories(kissfft
   PRIVATE "${CMAKE_CURRENT_LIST_DIR}"
+  PUBLIC "${CMAKE_CURRENT_LIST_DIR}/.."
 )
 
 target_compile_definitions(kissfft
