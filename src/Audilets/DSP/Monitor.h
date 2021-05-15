@@ -21,6 +21,7 @@ namespace Audilets::DSP
 
     void magnitudes(const short* frame, std::vector<float>& magnitudes);
     void frequencies(const short* frame, std::vector<float>& frequencies);
+    void milliseconds(std::vector<float>& milliseconds);
 
   protected:
 

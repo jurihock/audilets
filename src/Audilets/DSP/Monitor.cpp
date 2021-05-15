@@ -56,7 +56,6 @@ void Monitor::magnitudes(const short* frame, std::vector<float>& magnitudes)
 
   vocoder->analyze(frameBuffer2);
 
-  magnitudes.clear();
   magnitudes.resize(frameHalfSize);
 
   for (size_t i = 0; i < frameHalfSize; ++i)
@@ -75,11 +74,20 @@ void Monitor::frequencies(const short* frame, std::vector<float>& frequencies)
 
   vocoder->analyze(frameBuffer2);
 
-  frequencies.clear();
   frequencies.resize(frameHalfSize);
 
   for (size_t i = 0; i < frameHalfSize; ++i)
   {
     frequencies[i] = frameBuffer2[i].imag();
+  }
+}
+
+void Monitor::milliseconds(std::vector<float>& milliseconds)
+{
+  milliseconds.resize(frameSize);
+
+  for (size_t i = 0; i < frameSize; ++i)
+  {
+    milliseconds[i] = 1e3f * i / frameSampleRate;
   }
 }
