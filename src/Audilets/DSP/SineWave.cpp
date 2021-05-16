@@ -49,7 +49,7 @@ float SineWave::getNextPhase()
   while(phaseDivisor >= 1)
     phaseDivisor -= 1;
 
-  return 2.0f * math::PI<float> * phaseDivisor;
+  return 2.0f * math::pi * phaseDivisor;
 }
 
 float SineWave::getNextValue()

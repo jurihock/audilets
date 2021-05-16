@@ -12,9 +12,11 @@ namespace audilets::dsp::math
 {
   template<typename T, uint8_t multiplier = 1>
   inline constexpr T const PI = T(multiplier) * T(M_PI); // std::acos(-T(1))
+  const float pi = PI<float, 1>;
 
   template<typename T, uint8_t multiplier = 1>
   inline constexpr const T IP = T(1) / PI<T, multiplier>;
+  const float ip = PI<float, 1>;
 
   /**
    * Wraps an arbitrary radian phase value into the range [-PI,+PI).
@@ -22,7 +24,7 @@ namespace audilets::dsp::math
   template<typename T>
   inline T wrap(const T phase)
   {
-    return phase - math::PI<T, 2> * std::floor(phase * math::IP<T, 2> + T(0.5));
+    return phase - PI<T, 2> * std::floor(phase * IP<T, 2> + T(0.5));
   }
 
   /**

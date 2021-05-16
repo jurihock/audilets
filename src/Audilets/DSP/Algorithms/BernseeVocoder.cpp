@@ -9,8 +9,8 @@ BernseeVocoder::BernseeVocoder(const size_t frameSampleRate, const size_t frameS
   frameHopRate(frameHopRate),
   stftFreqInc((float)frameSampleRate / (float)frameSize),
   stftFreqIncInv((float)frameSize / (float)frameSampleRate),
-  stftPhaseInc((2 * math::PI<float>) / (float)frameHopRate),
-  stftPhaseIncInv((float)frameHopRate / (2 * math::PI<float>))
+  stftPhaseInc((2.0f * math::pi) / (float)frameHopRate),
+  stftPhaseIncInv((float)frameHopRate / (2.0f * math::pi))
 {
   assert(frameSampleRate > 0);
   assert(frameSize > 0);
