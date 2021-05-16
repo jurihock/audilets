@@ -12,7 +12,7 @@
 #include <string>
 #include <vector>
 
-namespace Audilets::GUI
+namespace Audilets::UI
 {
   class MultiPlotWindow : public QMainWindow
   {

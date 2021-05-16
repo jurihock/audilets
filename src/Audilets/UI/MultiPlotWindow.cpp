@@ -1,6 +1,6 @@
 #include "MultiPlotWindow.h"
 
-using namespace Audilets::GUI;
+using namespace Audilets::UI;
 
 MultiPlotWindow::MultiPlotWindow(QWidget* parent) :
   QMainWindow(parent)

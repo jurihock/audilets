@@ -6,8 +6,8 @@ add_library(audilets
   "${CMAKE_CURRENT_LIST_DIR}/DSP/SineWave.cpp"
   "${CMAKE_CURRENT_LIST_DIR}/DSP/STFT.cpp"
   "${CMAKE_CURRENT_LIST_DIR}/DSP/Window.cpp"
-  "${CMAKE_CURRENT_LIST_DIR}/GUI/MultiPlotWindow.cpp"
-  "${CMAKE_CURRENT_LIST_DIR}/IO/AudioSource.cpp")
+  "${CMAKE_CURRENT_LIST_DIR}/IO/AudioSource.cpp"
+  "${CMAKE_CURRENT_LIST_DIR}/UI/MultiPlotWindow.cpp")
 
 target_include_directories(audilets
   PUBLIC "${CMAKE_CURRENT_LIST_DIR}/.."

@@ -3,16 +3,16 @@
 #include <QApplication>
 
 #include <Audilets/DSP/Monitor.h>
-#include <Audilets/GUI/MultiPlotWindow.h>
+#include <Audilets/UI/MultiPlotWindow.h>
 
 #include <iostream>
 #include <chrono>
 #include <thread>
 
-using namespace Audilets::IO;
-using namespace Audilets::DSP::Algorithms;
 using namespace Audilets::DSP;
-using namespace Audilets::GUI;
+using namespace Audilets::DSP::Algorithms;
+using namespace Audilets::IO;
+using namespace Audilets::UI;
 
 const std::string audio_device_name = "apple";
 const size_t frame_sample_rate = 48000;
