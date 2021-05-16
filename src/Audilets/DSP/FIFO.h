@@ -8,11 +8,11 @@
 namespace Audilets::DSP
 {
   template<typename T>
-  class Ringbuffer
+  class FIFO
   {
   public:
 
-    Ringbuffer(const size_t size, std::function<T*(size_t index)> alloc, std::function<void(T* value)> free) :
+    FIFO(const size_t size, std::function<T*(size_t index)> alloc, std::function<void(T* value)> free) :
       alloc(alloc),
       free(free),
       todo(size),
@@ -24,7 +24,7 @@ namespace Audilets::DSP
       }
     }
 
-    ~Ringbuffer()
+    ~FIFO()
     {
       T* value;
 

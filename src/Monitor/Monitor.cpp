@@ -2,13 +2,8 @@
 
 #include <QApplication>
 
-#include <Audilets/DSP/Algorithms/SinglePitchShift.h>
-#include <Audilets/DSP/FFT.h>
 #include <Audilets/DSP/Monitor.h>
-#include <Audilets/DSP/SineWave.h>
-#include <Audilets/DSP/STFT.h>
 #include <Audilets/GUI/MultiPlotWindow.h>
-#include <Audilets/DSP/Ringbuffer.h>
 
 #include <iostream>
 #include <chrono>

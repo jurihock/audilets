@@ -1,6 +1,6 @@
 #pragma once
 
-#include <Audilets/DSP/Ringbuffer.h>
+#include <Audilets/DSP/FIFO.h>
 #include <Audilets/IO/Source.h>
 
 #include <rtaudio/RtAudio.h>
@@ -40,7 +40,7 @@ namespace Audilets::IO
 
     const std::string audio_device_name;
     size_t audio_device_id;
-    Audilets::DSP::Ringbuffer<InputFrame> audio_frame_buffer;
+    Audilets::DSP::FIFO<InputFrame> audio_frame_buffer;
     RtAudio audio;
 
     static int callback(void* output_frame_data, void* input_frame_data, uint32_t frame_size, double timestamp, RtAudioStreamStatus status, void* $this);
