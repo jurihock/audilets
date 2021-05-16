@@ -43,7 +43,7 @@ void BernseeVocoder::analyze(std::complex<float>* fft)
         delta,
         j;
 
-  for (size_t i = 1; i < frameHalfSize; ++i)
+  for (size_t i = 0; i < frameHalfSize; ++i)
   {
     magnitude = std::abs(fft[i]);
     phase = std::arg(fft[i]);
@@ -68,7 +68,7 @@ void BernseeVocoder::synthesize(std::complex<float>* fft)
         delta,
         j;
 
-  for (size_t i = 1; i < frameHalfSize; ++i)
+  for (size_t i = 0; i < frameHalfSize; ++i)
   {
     magnitude = fft[i].real();
     frequency = fft[i].imag();

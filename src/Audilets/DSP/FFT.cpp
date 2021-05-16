@@ -73,8 +73,8 @@ void FFT::fft(float* frame) const
   // fft(frame) => buffer
   kiss_fftr(forward, frame, buffer);
 
-  // re(Nyquist) => im(DC)
-  buffer[0].i = buffer[frameHalfSize].r;
+  // suppress DC
+  buffer[0].r = buffer[0].i = 0;
 
   // buffer => frame
   memcpy(frame, buffer, frameSize * sizeof(float));
@@ -85,9 +85,9 @@ void FFT::ifft(float* frame) const
   // frame => buffer
   memcpy(buffer, frame, frameSize * sizeof(float));
 
-  // im(DC) => re(Nyquist)
-  buffer[frameHalfSize].r = buffer[0].i;
-  buffer[0].i = buffer[frameHalfSize].i = 0;
+  // suppress DC and Nyquist
+  buffer[0].r = buffer[0].i = 0;
+  buffer[frameHalfSize].r = buffer[frameHalfSize].i = 0;
 
   // ifft(buffer) => frame
   kiss_fftri(backward, buffer, frame);
