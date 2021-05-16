@@ -4,7 +4,7 @@
 
 #include <kissfft/kiss_fftr.h>
 
-namespace Audilets::DSP
+namespace audilets::dsp
 {
   class FFT
   {

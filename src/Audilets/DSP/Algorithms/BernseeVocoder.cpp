@@ -1,6 +1,6 @@
 #include "BernseeVocoder.h"
 
-using namespace Audilets::DSP::Algorithms;
+using namespace audilets::dsp::algorithms;
 
 BernseeVocoder::BernseeVocoder(const size_t frameSampleRate, const size_t frameSize, const size_t frameHopRate) :
   frameSampleRate(frameSampleRate),
@@ -9,8 +9,8 @@ BernseeVocoder::BernseeVocoder(const size_t frameSampleRate, const size_t frameS
   frameHopRate(frameHopRate),
   stftFreqInc((float)frameSampleRate / (float)frameSize),
   stftFreqIncInv((float)frameSize / (float)frameSampleRate),
-  stftPhaseInc((2 * Math::PI<float>) / (float)frameHopRate),
-  stftPhaseIncInv((float)frameHopRate / (2 * Math::PI<float>))
+  stftPhaseInc((2 * math::PI<float>) / (float)frameHopRate),
+  stftPhaseIncInv((float)frameHopRate / (2 * math::PI<float>))
 {
   assert(frameSampleRate > 0);
   assert(frameSize > 0);
@@ -51,7 +51,7 @@ void BernseeVocoder::analyze(std::complex<float>* fft)
     delta = phase - backedPhaseBuffer[i];
     backedPhaseBuffer[i] = phase;
 
-    j = Math::wrap(delta - i * stftPhaseInc) * stftPhaseIncInv;
+    j = math::wrap(delta - i * stftPhaseInc) * stftPhaseIncInv;
 
     frequency = (i + j) * stftFreqInc;
 

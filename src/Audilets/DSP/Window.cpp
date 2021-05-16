@@ -2,7 +2,7 @@
 
 #include <cassert>
 
-using namespace Audilets::DSP;
+using namespace audilets::dsp;
 
 Window::Window(const size_t frameSize, const size_t frameHopRate, const bool periodic, const bool weighted) :
   frameSize(frameSize),
@@ -42,7 +42,7 @@ void Window::hann(float* window) const
 
   for (size_t i = 0; i < frameSize; ++i)
   {
-    window[i] = 0.5f * (1.0f - std::cos(2.0f * Math::PI<float> * i / (n - 1.0f)));
+    window[i] = 0.5f * (1.0f - std::cos(2.0f * math::PI<float> * i / (n - 1.0f)));
   }
 
   if (weighted)

@@ -1,6 +1,6 @@
 #include "SineWave.h"
 
-using namespace Audilets::DSP;
+using namespace audilets::dsp;
 
 SineWave::SineWave(const size_t sampleRate, const size_t waveFrequency)
 {
@@ -49,7 +49,7 @@ float SineWave::getNextPhase()
   while(phaseDivisor >= 1)
     phaseDivisor -= 1;
 
-  return 2.0f * Math::PI<float> * phaseDivisor;
+  return 2.0f * math::PI<float> * phaseDivisor;
 }
 
 float SineWave::getNextValue()

@@ -1,6 +1,6 @@
 #include "FFT.h"
 
-using namespace Audilets::DSP;
+using namespace audilets::dsp;
 
 FFT::FFT(const size_t frameSize, const bool shiftFrame, const bool normalizeFrame) :
   frameSize(frameSize),

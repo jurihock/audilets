@@ -2,7 +2,7 @@
 
 #include "Math.h"
 
-namespace Audilets::DSP::Convert
+namespace audilets::dsp::convert
 {
   inline void fromShortToFloat(const short* source, float* destination, const float* window, const size_t count)
   {
@@ -31,7 +31,7 @@ namespace Audilets::DSP::Convert
 
     for (size_t i = 0; i < count; ++i)
     {
-      value = Math::clamp(source[i] * window[i], -1.0f, +1.0f);
+      value = math::clamp(source[i] * window[i], -1.0f, +1.0f);
       value *= scaleToShort;
       value -= scaleCorrection;
 
@@ -48,7 +48,7 @@ namespace Audilets::DSP::Convert
 
     for (size_t i = 0; i < count; ++i)
     {
-      value = Math::clamp(source[i] * window[i], -1.0f, +1.0f);
+      value = math::clamp(source[i] * window[i], -1.0f, +1.0f);
       value *= scaleToShort;
       value -= scaleCorrection;
 

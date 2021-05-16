@@ -1,6 +1,6 @@
 #include <Audilets/IO/AudioSource.h>
 
-using namespace Audilets::IO;
+using namespace audilets::io;
 
 AudioSource::AudioSource(const std::string& device_name, size_t frame_sample_rate, size_t frame_size, size_t frame_buffer_size) :
   Source(frame_sample_rate, frame_size, frame_buffer_size),

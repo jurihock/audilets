@@ -2,7 +2,7 @@
 
 #include <Audilets/DSP/Math.h>
 
-namespace Audilets::DSP::Algorithms
+namespace audilets::dsp::algorithms
 {
   /**
    * Pitch Shifting Using The Fourier Transform (Version 1.2)

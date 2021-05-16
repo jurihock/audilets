@@ -5,7 +5,7 @@
 #include <iostream>
 #include <functional>
 
-namespace Audilets::IO
+namespace audilets::io
 {
   template<typename T>
   class Source

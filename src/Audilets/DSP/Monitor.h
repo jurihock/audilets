@@ -8,9 +8,9 @@
 
 #include <vector>
 
-using Audilets::DSP::Algorithms::BernseeVocoder;
+using audilets::dsp::algorithms::BernseeVocoder;
 
-namespace Audilets::DSP
+namespace audilets::dsp
 {
   class Monitor
   {

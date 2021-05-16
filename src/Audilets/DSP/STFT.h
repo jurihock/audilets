@@ -7,7 +7,7 @@
 
 #include <vector>
 
-namespace Audilets::DSP
+namespace audilets::dsp
 {
   class STFT
   {

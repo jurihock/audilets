@@ -1,6 +1,6 @@
 #include "SinglePitchShift.h"
 
-using namespace Audilets::DSP::Algorithms;
+using namespace audilets::dsp::algorithms;
 
 SinglePitchShift::SinglePitchShift(const size_t frameSampleRate, const size_t frameSize, const size_t frameHopRate) :
   STFT(frameSampleRate, frameSize, frameHopRate),

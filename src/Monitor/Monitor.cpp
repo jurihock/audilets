@@ -10,10 +10,10 @@
 #include <chrono>
 #include <thread>
 
-using namespace Audilets::DSP;
-using namespace Audilets::DSP::Algorithms;
-using namespace Audilets::IO;
-using namespace Audilets::UI;
+using namespace audilets::dsp;
+using namespace audilets::dsp::algorithms;
+using namespace audilets::io;
+using namespace audilets::ui;
 
 const std::string audio_device_name = "apple";
 const size_t frame_sample_rate = 48000;
@@ -104,7 +104,7 @@ void analyze()
     monitor.milliseconds(milliseconds);
     monitor.frequencies(buffer.data(), frequencies);
     monitor.magnitudes(buffer.data(), magnitudes);
-    Math::decibel(magnitudes.begin(), magnitudes.end());
+    math::decibel(magnitudes.begin(), magnitudes.end());
 
     //std::cout << " " << frequencies[0] << " " << magnitudes[0] << std::endl;
 
@@ -114,8 +114,8 @@ void analyze()
     plot->replot<0, 0>();
     plot->replot<1, 0>();
 
-    // const auto mean = Math::mean(buffer.begin(), buffer.end());
-    // const auto stdev = Math::stdev(buffer.begin(), buffer.end(), mean);
+    // const auto mean = math::mean(buffer.begin(), buffer.end());
+    // const auto stdev = math::stdev(buffer.begin(), buffer.end(), mean);
     // std::cout << "mean=" << mean << " stdev=" << stdev << std::endl;
   }
 }

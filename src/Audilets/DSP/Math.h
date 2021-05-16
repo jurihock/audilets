@@ -8,7 +8,7 @@
 #include <limits>
 #include <numeric>
 
-namespace Audilets::DSP::Math
+namespace audilets::dsp::math
 {
   template<typename T, uint8_t multiplier = 1>
   inline constexpr T const PI = T(multiplier) * T(M_PI); // std::acos(-T(1))
@@ -22,7 +22,7 @@ namespace Audilets::DSP::Math
   template<typename T>
   inline T wrap(const T phase)
   {
-    return phase - Math::PI<T, 2> * std::floor(phase * Math::IP<T, 2> + T(0.5));
+    return phase - math::PI<T, 2> * std::floor(phase * math::IP<T, 2> + T(0.5));
   }
 
   /**

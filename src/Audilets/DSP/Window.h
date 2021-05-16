@@ -2,7 +2,7 @@
 
 #include "Math.h"
 
-namespace Audilets::DSP
+namespace audilets::dsp
 {
   class Window
   {

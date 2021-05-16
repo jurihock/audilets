@@ -1,6 +1,6 @@
 #include "STFT.h"
 
-using namespace Audilets::DSP;
+using namespace audilets::dsp;
 
 STFT::STFT(const size_t frameSampleRate, const size_t frameSize, const size_t frameHopRate) :
   frameSampleRate(frameSampleRate),
@@ -76,7 +76,7 @@ void STFT::stft(const short* frame, short* reframe)
   for (const size_t frameHop : frameHops)
   {
     // extract the current subframe for analysis
-    Convert::fromShortToFloat(analysisBuffer + frameHop, frameBuffer, frameWindow, frameSize);
+    convert::fromShortToFloat(analysisBuffer + frameHop, frameBuffer, frameWindow, frameSize);
 
     // process the extracted subframe in time domain
     processInTimeDomain(frameBuffer);
@@ -87,7 +87,7 @@ void STFT::stft(const short* frame, short* reframe)
     fft->ifft(frameBuffer);
 
     // synthesize the processed subframe
-    Convert::fromFloatToShortPlus(frameBuffer, synthesisBuffer + frameHop, frameWindow, frameSize);
+    convert::fromFloatToShortPlus(frameBuffer, synthesisBuffer + frameHop, frameWindow, frameSize);
   }
 
   // copy the finished frame into the output frame

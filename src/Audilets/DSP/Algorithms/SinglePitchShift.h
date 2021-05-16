@@ -5,7 +5,7 @@
 
 #include "BernseeVocoder.h"
 
-namespace Audilets::DSP::Algorithms
+namespace audilets::dsp::algorithms
 {
   class SinglePitchShift : public STFT
   {

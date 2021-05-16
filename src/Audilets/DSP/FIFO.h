@@ -5,7 +5,7 @@
 #include <chrono>
 #include <functional>
 
-namespace Audilets::DSP
+namespace audilets::dsp
 {
   template<typename T>
   class FIFO
