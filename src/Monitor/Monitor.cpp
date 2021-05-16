@@ -90,20 +90,13 @@ void analyze()
       frame = last_frame;
     }
 
-    std::vector<short> buffer(frame.size());
-
-    for (size_t i = 0; i < buffer.size(); ++i)
-    {
-      buffer[i] = static_cast<short>(frame[i] * std::numeric_limits<short>::max());
-    }
-
     std::vector<float> milliseconds;
     std::vector<float> frequencies;
     std::vector<float> magnitudes;
 
     monitor.milliseconds(milliseconds);
-    monitor.frequencies(buffer.data(), frequencies);
-    monitor.magnitudes(buffer.data(), magnitudes);
+    monitor.frequencies(frame.data(), frequencies);
+    monitor.magnitudes(frame.data(), magnitudes);
     math::decibel(magnitudes.begin(), magnitudes.end());
 
     //std::cout << " " << frequencies[0] << " " << magnitudes[0] << std::endl;

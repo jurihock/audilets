@@ -64,9 +64,45 @@ void Monitor::magnitudes(const short* frame, std::vector<float>& magnitudes)
   }
 }
 
+void Monitor::magnitudes(const float* frame, std::vector<float>& magnitudes)
+{
+  convert::from_float_to_float(frame, frameBuffer, frameWindow, frameSize);
+
+  fft->fft(frameBuffer);
+
+  auto frameBuffer2 = reinterpret_cast<std::complex<float>*>(frameBuffer);
+
+  vocoder->analyze(frameBuffer2);
+
+  magnitudes.resize(frameHalfSize);
+
+  for (size_t i = 0; i < frameHalfSize; ++i)
+  {
+    magnitudes[i] = frameBuffer2[i].real();
+  }
+}
+
 void Monitor::frequencies(const short* frame, std::vector<float>& frequencies)
 {
   convert::from_short_to_float(frame, frameBuffer, frameWindow, frameSize);
+
+  fft->fft(frameBuffer);
+
+  auto frameBuffer2 = reinterpret_cast<std::complex<float>*>(frameBuffer);
+
+  vocoder->analyze(frameBuffer2);
+
+  frequencies.resize(frameHalfSize);
+
+  for (size_t i = 0; i < frameHalfSize; ++i)
+  {
+    frequencies[i] = frameBuffer2[i].imag();
+  }
+}
+
+void Monitor::frequencies(const float* frame, std::vector<float>& frequencies)
+{
+  convert::from_float_to_float(frame, frameBuffer, frameWindow, frameSize);
 
   fft->fft(frameBuffer);
 

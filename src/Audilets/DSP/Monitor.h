@@ -20,7 +20,11 @@ namespace audilets::dsp
     ~Monitor();
 
     void magnitudes(const short* frame, std::vector<float>& magnitudes);
+    void magnitudes(const float* frame, std::vector<float>& magnitudes);
+
     void frequencies(const short* frame, std::vector<float>& frequencies);
+    void frequencies(const float* frame, std::vector<float>& frequencies);
+
     void milliseconds(std::vector<float>& milliseconds);
 
   protected:
