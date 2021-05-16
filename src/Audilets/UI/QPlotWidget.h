@@ -1,12 +1,11 @@
 #pragma once
 
+#include <qcustomplot/qcustomplot.h>
+
 #include <QColor>
 #include <QGridLayout>
-#include <QMainWindow>
 #include <QPen>
 #include <QWidget>
-
-#include <qcustomplot/qcustomplot.h>
 
 #include <memory>
 #include <string>
@@ -14,23 +13,16 @@
 
 namespace Audilets::UI
 {
-  class MultiPlotWindow : public QMainWindow
+  class QPlotWidget : public QWidget
   {
   public:
 
-    MultiPlotWindow(QWidget* parent = nullptr);
-    ~MultiPlotWindow();
-
-  private:
-
-    std::shared_ptr<QWidget> root;
-    std::shared_ptr<QGridLayout> layout;
-    std::vector<std::shared_ptr<QCustomPlot>> plots;
-
-    QColor getColor(const size_t index) const;
-    QCustomPlot* getPlot(const size_t row, const size_t col) const;
-
-  public:
+    QPlotWidget(QWidget* parent = nullptr) :
+      QWidget(parent)
+    {
+      layout = std::make_shared<QGridLayout>();
+      setLayout(layout.get());
+    }
 
     template<const size_t row, const size_t col>
     void addPlot(const size_t numberOfGraphs = 1)
@@ -44,8 +36,8 @@ namespace Audilets::UI
         plot->addGraph();
 
         QPen pen;
-        pen.setColor(getColor(i));
-        pen.setWidth(2);
+        pen.setColor(getLineColor(i));
+        pen.setWidth(getLineWidth(i));
 
         plot->graph(i)->setPen(pen);
       }
@@ -157,5 +149,56 @@ namespace Audilets::UI
 
       plot->graph(graph)->setData(x, y);
     }
+
+  protected:
+
+    QCustomPlot* getPlot(const size_t row, const size_t col) const
+    {
+      return dynamic_cast<QCustomPlot*>(layout->itemAtPosition(row, col)->widget());
+    }
+
+    QColor getLineColor(const size_t index) const
+    {
+      const auto& color = colors[index % 10];
+
+      return QColor(color[0], color[1], color[2]);
+    }
+
+    int getLineWidth(const size_t index) const
+    {
+      return 2;
+    }
+
+  private:
+
+    std::shared_ptr<QGridLayout> layout;
+    std::vector<std::shared_ptr<QCustomPlot>> plots;
+
+    /*
+    #!/usr/bin/env python
+
+    import numpy
+    import seaborn
+
+    colors = numpy.array(seaborn.color_palette())
+    colors = (colors * 0xFF).clip(0, 0xFF).astype(numpy.uint8)
+    colors = colors.tolist()
+
+    print(colors)
+    */
+
+    const int colors[10][3] =
+    {
+      {  31, 119, 180 },
+      { 255, 127,  14 },
+      {  44, 160,  44 },
+      { 214,  39,  40 },
+      { 148, 103, 189 },
+      { 140,  86,  75 },
+      { 227, 119, 194 },
+      { 127, 127, 127 },
+      { 188, 189,  34 },
+      {  23, 190, 207 },
+    };
   };
 }

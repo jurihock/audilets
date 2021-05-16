@@ -1,9 +1,10 @@
 #include <Audilets/IO/AudioSource.h>
 
 #include <QApplication>
+#include <QMainWindow>
 
 #include <Audilets/DSP/Monitor.h>
-#include <Audilets/UI/MultiPlotWindow.h>
+#include <Audilets/UI/QPlotWidget.h>
 
 #include <iostream>
 #include <chrono>
@@ -22,7 +23,7 @@ const size_t frame_buffer_size = 10;
 AudioSource source(audio_device_name, frame_sample_rate, frame_size, frame_buffer_size);
 Monitor monitor(frame_sample_rate, frame_size);
 std::vector<float> last_frame(frame_size);
-std::shared_ptr<MultiPlotWindow> plot;
+std::shared_ptr<QPlotWidget> plot;
 
 volatile bool $continue;
 std::condition_variable $signal;
@@ -119,11 +120,11 @@ void analyze()
   }
 }
 
-int show(int argc, char* argv[])
+int exec(int argc, char* argv[])
 {
   QApplication application(argc, argv);
 
-  plot = std::make_shared<MultiPlotWindow>();
+  plot = std::make_shared<QPlotWidget>();
 
   plot->addPlot<0, 0>(1);
   plot->setPlotLabelX<0, 0>("ms");
@@ -136,6 +137,8 @@ int show(int argc, char* argv[])
   plot->setPlotRangeX<1, 0>(0, 2500);
   plot->setPlotLabelY<1, 0>("dB");
   plot->setPlotRangeY<1, 0>(-60, +30);
+
+  plot->resize(800, 600);
 
   plot->show();
 
@@ -154,7 +157,7 @@ int main(int argc, char* argv[])
   std::thread thread1(acquire);
   std::thread thread2(analyze);
 
-  const int result = show(argc, argv);
+  const int result = exec(argc, argv);
 
   thread2.join();
   thread1.join();
