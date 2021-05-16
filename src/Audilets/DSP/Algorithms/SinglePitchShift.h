@@ -3,7 +3,7 @@
 #include <Audilets/DSP/Math.h>
 #include <Audilets/DSP/STFT.h>
 
-#include "BernseeVocoder.h"
+#include <Audilets/DSP/Algorithms/BernseeVocoder.h>
 
 namespace audilets::dsp::algorithms
 {

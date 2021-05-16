@@ -1,4 +1,4 @@
-#include "BernseeVocoder.h"
+#include <Audilets/DSP/Algorithms/BernseeVocoder.h>
 
 using namespace audilets::dsp::algorithms;
 

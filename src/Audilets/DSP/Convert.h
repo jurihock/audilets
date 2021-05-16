@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Math.h"
+#include <Audilets/DSP/Math.h>
 
 namespace audilets::dsp::convert
 {
@@ -42,7 +42,7 @@ namespace audilets::dsp::convert
   {
     for (size_t i = 0; i < count; ++i)
     {
-      destination[i] /*plus*/ += to_short(math::clamp(source[i] * window[i], -1.0f, +1.0f));
+      destination[i] += /* plus */ to_short(math::clamp(source[i] * window[i], -1.0f, +1.0f));
     }
   }
 
@@ -50,7 +50,7 @@ namespace audilets::dsp::convert
   {
     for (size_t i = 0; i < count; ++i)
     {
-      destination[i] /*plus*/ += math::clamp(source[i] * window[i], -1.0f, +1.0f);
+      destination[i] += /* plus */ math::clamp(source[i] * window[i], -1.0f, +1.0f);
     }
   }
 }

@@ -1,4 +1,4 @@
-#include "SinglePitchShift.h"
+#include <Audilets/DSP/Algorithms/SinglePitchShift.h>
 
 using namespace audilets::dsp::algorithms;
 

@@ -1,9 +1,9 @@
 #pragma once
 
-#include "Convert.h"
-#include "FFT.h"
-#include "Math.h"
-#include "Window.h"
+#include <Audilets/DSP/Convert.h>
+#include <Audilets/DSP/FFT.h>
+#include <Audilets/DSP/Math.h>
+#include <Audilets/DSP/Window.h>
 
 #include <vector>
 

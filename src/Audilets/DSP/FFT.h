@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Math.h"
+#include <Audilets/DSP/Math.h>
 
 #include <kissfft/kiss_fftr.h>
 

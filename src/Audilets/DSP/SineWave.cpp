@@ -1,4 +1,4 @@
-#include "SineWave.h"
+#include <Audilets/DSP/SineWave.h>
 
 using namespace audilets::dsp;
 
