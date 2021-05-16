@@ -76,7 +76,7 @@ void STFT::stft(const short* frame, short* reframe)
   for (const size_t frameHop : frameHops)
   {
     // extract the current subframe for analysis
-    convert::fromShortToFloat(analysisBuffer + frameHop, frameBuffer, frameWindow, frameSize);
+    convert::from_short_to_float(analysisBuffer + frameHop, frameBuffer, frameWindow, frameSize);
 
     // process the extracted subframe in time domain
     processInTimeDomain(frameBuffer);
@@ -87,7 +87,7 @@ void STFT::stft(const short* frame, short* reframe)
     fft->ifft(frameBuffer);
 
     // synthesize the processed subframe
-    convert::fromFloatToShortPlus(frameBuffer, synthesisBuffer + frameHop, frameWindow, frameSize);
+    convert::from_float_to_short_plus(frameBuffer, synthesisBuffer + frameHop, frameWindow, frameSize);
   }
 
   // copy the finished frame into the output frame
