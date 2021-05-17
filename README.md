@@ -8,5 +8,5 @@ Another interesting thing I found is the Stephan M. Bernsee technique described 
 [Pitch Shifting Using The Fourier Transform](http://blogs.zynaptiq.com/bernsee/pitch-shifting-using-the-ft),
 which could also be useful in general audio processing.
 
-I have no plans to go back to the Android OS, but instead utilize the [RtAudio](https://github.com/thestk/rtaudio) interface to be more platform independent.
-Otherwise the integration of development boards like [Teensy](https://www.pjrc.com/teensy) could be potentially a subject in case of concrete idea.
+I have no plans to go back to the Android OS, but to go easy with the [RtAudio](https://github.com/thestk/rtaudio) and C++, and be more platform independent.
+Otherwise the integration of development boards like [Teensy](https://www.pjrc.com/teensy) could be potentially a subject in case of a concrete idea.
