@@ -36,33 +36,40 @@ void AudioSink::open()
 
   audio_device_id.reset();
 
-  const std::regex device_name_regex(
-    ".*" + audio_device_name + ".*",
-    std::regex_constants::icase);
-
-  const size_t devices = audio.getDeviceCount();
-
-  for (size_t i = 0; i < devices; ++i)
+  if (audio_device_name.empty())
   {
-    const RtAudio::DeviceInfo device = audio.getDeviceInfo(i);
+    audio_device_id = audio.getDefaultOutputDevice();
+  }
+  else
+  {
+    const std::regex device_name_regex(
+      ".*" + audio_device_name + ".*",
+      std::regex_constants::icase);
 
-    if (!device.probed)
+    const size_t devices = audio.getDeviceCount();
+
+    for (size_t i = 0; i < devices; ++i)
     {
-      continue;
-    }
+      const RtAudio::DeviceInfo device = audio.getDeviceInfo(i);
 
-    if (device.outputChannels < 1)
-    {
-      continue;
-    }
+      if (!device.probed)
+      {
+        continue;
+      }
 
-    if (!std::regex_match(device.name, device_name_regex))
-    {
-      continue;
-    }
+      if (device.outputChannels < 1)
+      {
+        continue;
+      }
 
-    audio_device_id = i;
-    break;
+      if (!std::regex_match(device.name, device_name_regex))
+      {
+        continue;
+      }
+
+      audio_device_id = i;
+      break;
+    }
   }
 
   if (!audio_device_id)
