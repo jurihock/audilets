@@ -5,7 +5,7 @@ using namespace audilets::io;
 AudioSource::AudioSource(const std::string& device_name, size_t frame_sample_rate, size_t frame_size, size_t frame_buffer_size) :
   Source(frame_sample_rate, frame_size, frame_buffer_size),
   audio_device_name(device_name),
-  audio_device_id(0),
+  audio_device_id(std::nullopt),
   audio_frame_buffer(
     frame_buffer_size,
     [frame_size](size_t index)
@@ -36,7 +36,7 @@ void AudioSource::open()
     audio.closeStream();
   }
 
-  audio_device_id = 0;
+  audio_device_id.reset();
 
   const std::regex device_name_regex(
     ".*" + audio_device_name + ".*",
@@ -63,17 +63,17 @@ void AudioSource::open()
       continue;
     }
 
-    audio_device_id = i + 1;
+    audio_device_id = i;
     break;
   }
 
   if (!audio_device_id)
   {
-    throw std::runtime_error("No such device found!");
+    throw std::runtime_error("Audio source " + audio_device_name + " not found!");
   }
 
   RtAudio::StreamParameters parameters;
-  parameters.deviceId = audio_device_id - 1;
+  parameters.deviceId = audio_device_id.value();
   parameters.nChannels = 1;
   parameters.firstChannel = 0;
 
@@ -90,7 +90,7 @@ void AudioSource::open()
 
   if (new_frame_size != frame_size())
   {
-    throw std::runtime_error("Unexpected frame size " + std::to_string(new_frame_size) + "!");
+    throw std::runtime_error("Unexpected audio source stream frame size " + std::to_string(new_frame_size) + "!");
   }
 }
 
@@ -142,12 +142,11 @@ void AudioSource::read(std::function<void(const std::vector<float>& frame)> call
   const auto ok = audio_frame_buffer.read(frame_sample_period(), [&](InputFrame& input)
   {
     callback(input.frame);
-    //std::cout << "RELEASE FRAME " << input.index << std::endl;
   });
 
   if (!ok)
   {
-    std::cout << "UNABLE TO READ INPUT FRAME!" << std::endl;
+    std::cout << "UNABLE TO READ FROM INPUT FRAME FIFO!" << std::endl;
   }
 }
 
@@ -159,20 +158,23 @@ int AudioSource::callback(void* output_frame_data, void* input_frame_data, uint3
   {
     if (input.frame.size() != frame_size)
     {
-      std::cout << "UNEXPECTED FRAME SIZE!" << std::endl;
+      std::cout << "UNEXPECTED INPUT FRAME SIZE!" << std::endl;
     }
 
     std::memcpy(
       input.frame.data(), input_frame_data,
       std::min(input.frame.size(), (size_t)frame_size) *
         sizeof(input.frame.front()));
-
-    //std::cout << "FILL FRAME " << input.index << std::endl;
   });
 
   if (!ok)
   {
-    std::cout << "UNABLE TO WRITE INPUT FRAME!" << std::endl;
+    std::cout << "UNABLE TO WRITE TO INPUT FRAME FIFO!" << std::endl;
+  }
+
+  if (status != 0)
+  {
+    std::cout << "AUDIO SOURCE STREAM STATUS " << status << std::endl;
   }
 
   return 0;
