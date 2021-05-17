@@ -14,6 +14,7 @@ target_include_directories(audilets
 )
 
 target_link_libraries(audilets
+  dr
   kissfft
   pthread
   qcustomplot

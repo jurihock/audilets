@@ -3,6 +3,7 @@ cmake_minimum_required(VERSION 3.5)
 project(Audilets)
 
 # lib
+include("lib/dr/CMakeLists.txt")
 include("lib/kissfft/CMakeLists.txt")
 include("lib/qcustomplot/CMakeLists.txt")
 include("lib/readerwriterqueue/CMakeLists.txt")
