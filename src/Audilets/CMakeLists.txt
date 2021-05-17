@@ -19,6 +19,7 @@ target_link_libraries(audilets
   qcustomplot
   readerwriterqueue
   rtaudio
+  rtmidi
 )
 
 target_compile_features(audilets

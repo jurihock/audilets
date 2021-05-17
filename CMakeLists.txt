@@ -7,6 +7,7 @@ include("lib/kissfft/CMakeLists.txt")
 include("lib/qcustomplot/CMakeLists.txt")
 include("lib/readerwriterqueue/CMakeLists.txt")
 include("lib/rtaudio/CMakeLists.txt")
+include("lib/rtmidi/CMakeLists.txt")
 
 # src
 include("src/Audilets/CMakeLists.txt")
