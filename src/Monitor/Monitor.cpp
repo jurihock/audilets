@@ -47,7 +47,7 @@ void acquire()
   source.start();
 
   std::this_thread::sleep_for(
-    5 * source.frame_sample_period());
+    source.frame_sample_period());
 
   while ($continue)
   {
@@ -76,13 +76,18 @@ void analyze()
     }
   }
 
-  std::this_thread::sleep_for(
-    std::chrono::milliseconds(750));
+  std::chrono::milliseconds delays[4]
+  {
+    std::chrono::milliseconds(0),
+    std::chrono::milliseconds(0),
+    std::chrono::milliseconds(200),
+    source.frame_sample_period()
+  };
 
   while ($continue)
   {
     std::this_thread::sleep_for(
-      std::chrono::milliseconds(250));
+      std::max({ delays[0], delays[1], delays[2], delays[3] }));
 
     std::vector<float> frame;
     {
@@ -99,17 +104,11 @@ void analyze()
     monitor.magnitudes(frame.data(), magnitudes);
     math::decibel(magnitudes.begin(), magnitudes.end());
 
-    //std::cout << " " << frequencies[0] << " " << magnitudes[0] << std::endl;
-
     plot->setPlotData<0, 0>(milliseconds, frame);
     plot->setPlotData<1, 0>(frequencies, magnitudes);
 
-    plot->replot<0, 0>();
-    plot->replot<1, 0>();
-
-    // const auto mean = math::mean(buffer.begin(), buffer.end());
-    // const auto stdev = math::stdev(buffer.begin(), buffer.end(), mean);
-    // std::cout << "mean=" << mean << " stdev=" << stdev << std::endl;
+    delays[0] = plot->replot<0, 0>();
+    delays[1] = plot->replot<1, 0>();
   }
 }
 

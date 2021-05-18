@@ -7,6 +7,7 @@
 #include <QPen>
 #include <QWidget>
 
+#include <chrono>
 #include <memory>
 #include <string>
 #include <vector>
@@ -88,12 +89,14 @@ namespace audilets::ui
     }
 
     template<const size_t row, const size_t col>
-    void replot()
+    std::chrono::milliseconds replot()
     {
       auto plot = getPlot(row, col);
 
-      // FIXME find the right way to trigger replot...
       plot->replot(QCustomPlot::rpQueuedReplot);
+
+      return std::chrono::milliseconds(
+        static_cast<int>(plot->replotTime()));
     }
 
     template<const size_t row, const size_t col, const size_t graph = 0, typename T>
