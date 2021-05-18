@@ -1,7 +1,7 @@
 # Audilets
 
 The Audilets is a kind of successor to the [Voicesmith](https://github.com/jurihock/voicesmith) project.
-There is currently no specific product idea behind this, but the intention to rethink past things and discover new ones.
+There is currently no specific product idea behind this project, but the intention to rethink past things and discover new ones.
 
 The main focus should be on frequency domain processing according to the STFT.
 Another interesting thing I found is the Stephan M. Bernsee technique described in
