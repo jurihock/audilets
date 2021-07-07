@@ -24,7 +24,7 @@ def zplot(z, p, axis):
     axis.set_xlabel('re')
     axis.set_ylabel('im')
 
-    r = 0.5 + np.amax(np.concatenate((abs(z), abs(p), [1])))
+    r = 1.5 * np.amax(np.concatenate((np.abs(z), np.abs(p), [1])))
     axis.axis('scaled')
     axis.axis([-r, r, -r, r])
 
