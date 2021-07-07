@@ -12,14 +12,14 @@ from numpy.polynomial.polynomial \
 
 def zplot(z, p, axis):
 
-    circle = Circle((0,0), radius=1, fill=False, linestyle='-', color='black', alpha=0.3)
+    circle = Circle((0,0), radius=1, linestyle=':', linewidth=1, color='black', fill=False, alpha=0.3)
     axis.add_patch(circle)
 
-    axis.axvline(0, linestyle='--', color='black', alpha=0.3)
-    axis.axhline(0, linestyle='--', color='black', alpha=0.3)
+    axis.axvline(0, linestyle=':', linewidth=1, color='black', alpha=0.3)
+    axis.axhline(0, linestyle=':', linewidth=1, color='black', alpha=0.3)
 
-    axis.plot(z.real, z.imag, 'o', markersize=9, color='none', markeredgecolor='blue', alpha=0.7)
-    axis.plot(p.real, p.imag, 'x', markersize=9, color='red', alpha=0.7)
+    axis.plot(z.real, z.imag, 'o', markersize=10, color='none', markeredgecolor='blue', alpha=0.7)
+    axis.plot(p.real, p.imag, 'x', markersize=10, color='red', alpha=0.7)
 
     axis.set_xlabel('re')
     axis.set_ylabel('im')
@@ -78,9 +78,9 @@ figure, axes = plot.subplots(nrows=1, ncols=2)
 figure.suptitle('Chamberlin \nFS={}Hz, FC={}Hz, \nQ={}'.format(FS, FC, Q))
 
 axes[0].axvline(FC, linestyle='--', color='black', alpha=0.3)
-axes[0].plot(lp['w'], abs(lp['h']), label='LP')
-axes[0].plot(hp['w'], abs(hp['h']), label='HP')
-axes[0].plot(bp['w'], abs(bp['h']), label='BP')
+axes[0].plot(lp['w'], abs(lp['h']), label='LP', color='tab:blue')
+axes[0].plot(hp['w'], abs(hp['h']), label='HP', color='tab:green')
+axes[0].plot(bp['w'], abs(bp['h']), label='BP', color='tab:red')
 axes[0].set_xscale('log')
 axes[0].set_xlabel('Frequency [Hz]')
 axes[0].set_ylabel('Gain [dB]')
@@ -88,9 +88,9 @@ axes[0].legend()
 axes[0].grid()
 
 axes[1].axvline(FC, linestyle='--', color='black', alpha=0.3)
-axes[1].plot(lp['w'], arg(lp['h']), label='LP')
-axes[1].plot(hp['w'], arg(hp['h']), label='HP')
-axes[1].plot(bp['w'], arg(bp['h']), label='BP')
+axes[1].plot(lp['w'], arg(lp['h']), label='LP', color='tab:blue')
+axes[1].plot(hp['w'], arg(hp['h']), label='HP', color='tab:green')
+axes[1].plot(bp['w'], arg(bp['h']), label='BP', color='tab:red')
 axes[1].set_xscale('log')
 axes[1].set_xlabel('Frequency [Hz]')
 axes[1].set_ylabel('Phase [rad]')
