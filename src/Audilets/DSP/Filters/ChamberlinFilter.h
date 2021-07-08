@@ -8,20 +8,22 @@ namespace audilets::dsp::filters
   {
   public:
 
-    enum class Type { LP, HP, BP };
+    enum class Type { Bypass, Lowpass, Highpass, Bandpass, Bandstop };
 
     ChamberlinFilter(const size_t frameSampleRate, const float filterFrequency, const ChamberlinFilter::Type filterType);
     ~ChamberlinFilter();
 
     float frequency() const;
-    void frequency(float value);
+    void frequency(float filterFrequency);
 
     ChamberlinFilter::Type type() const;
-    void type(const ChamberlinFilter::Type value);
+    void type(const ChamberlinFilter::Type filterType);
 
-    float get(const ChamberlinFilter::Type value) const;
+    float get(const ChamberlinFilter::Type filterType) const;
     float get() const;
     float set(float value);
+
+    float operator()(float value) { return set(value); }
 
   private:
 
@@ -29,6 +31,6 @@ namespace audilets::dsp::filters
     float filterFrequency;
     ChamberlinFilter::Type filterType;
     float f, q;
-    float lp0, hp0, bp0;
+    float value, lowpass, highpass, bandpass, bandstop;
   };
 }

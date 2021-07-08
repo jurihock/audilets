@@ -4,14 +4,15 @@ using namespace audilets::dsp::filters;
 
 ChamberlinFilter::ChamberlinFilter(const size_t frameSampleRate, const float filterFrequency, const ChamberlinFilter::Type filterType) :
   frameSampleRate(frameSampleRate),
-  filterFrequency(filterFrequency),
-  filterType(filterType),
-  f(2 * std::sin(math::pi * filterFrequency / frameSampleRate)),
-  q(std::sqrt(2)),
-  lp0(0),
-  hp0(0),
-  bp0(0)
+  q(std::sqrt(2.0f)),
+  value(0),
+  lowpass(0),
+  highpass(0),
+  bandpass(0),
+  bandstop(0)
 {
+  frequency(filterFrequency);
+  type(filterType);
 }
 
 ChamberlinFilter::~ChamberlinFilter()
@@ -23,9 +24,9 @@ float ChamberlinFilter::frequency() const
   return filterFrequency;
 }
 
-void ChamberlinFilter::frequency(const float value)
+void ChamberlinFilter::frequency(const float filterFrequency)
 {
-  filterFrequency = value;
+  this->filterFrequency = filterFrequency;
 
   f = 2 * std::sin(math::pi * filterFrequency / frameSampleRate);
 }
@@ -35,18 +36,20 @@ ChamberlinFilter::Type ChamberlinFilter::type() const
   return filterType;
 }
 
-void ChamberlinFilter::type(ChamberlinFilter::Type value)
+void ChamberlinFilter::type(ChamberlinFilter::Type filterType)
 {
-  filterType = value;
+  this->filterType = filterType;
 }
 
-float ChamberlinFilter::get(const ChamberlinFilter::Type value) const
+float ChamberlinFilter::get(const ChamberlinFilter::Type filterType) const
 {
-  switch (value)
+  switch (filterType)
   {
-    case ChamberlinFilter::Type::LP: return lp0;
-    case ChamberlinFilter::Type::HP: return hp0;
-    case ChamberlinFilter::Type::BP: return bp0;
+    case ChamberlinFilter::Type::Bypass:   return value;
+    case ChamberlinFilter::Type::Lowpass:  return lowpass;
+    case ChamberlinFilter::Type::Highpass: return highpass;
+    case ChamberlinFilter::Type::Bandpass: return bandpass;
+    case ChamberlinFilter::Type::Bandstop: return bandstop;
     default: throw std::runtime_error(
       "Unsupported Chamberlin filter type!");
   }
@@ -59,13 +62,16 @@ float ChamberlinFilter::get() const
 
 float ChamberlinFilter::set(float value)
 {
-  const auto hp1 = value + q * bp0 - lp0;
-  const auto bp1 = f * hp1 + bp0;
-  const auto lp1 = f * bp1 + lp0;
+  const auto highpass = value - q * this->bandpass - this->lowpass;
+  const auto bandpass = f * highpass + this->bandpass;
+  const auto lowpass = f * bandpass + this->lowpass;
+  const auto bandstop = lowpass + highpass;
 
-  hp0 = hp1;
-  bp0 = bp1;
-  lp0 = lp1;
+  this->value = value;
+  this->lowpass = lowpass;
+  this->highpass = highpass;
+  this->bandpass = bandpass;
+  this->bandstop = bandstop;
 
   return get(filterType);
 }
