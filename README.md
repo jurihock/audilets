@@ -1,5 +1,7 @@
 # Audilets
 
+> :warning: **Audilets is on hold for now, further development is now taking place in [voyx](https://github.com/jurihock/voyx).**
+
 The Audilets is a kind of successor to the [Voicesmith](https://github.com/jurihock/voicesmith) project.
 There is currently no specific product idea behind this project, but the intention to rethink past things and discover new ones.
 
